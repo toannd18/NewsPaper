@@ -1,0 +1,132 @@
+﻿@model NewsPaper.Service.ViewModels.NewsArticleModel
+@{
+    ViewBag.Title = Model.Id > 0 ? $"Sửa bản tin {Model.Headline}" : "Tạo mới bản tin";
+    Layout = "~/Areas/admin/Views/Shared/AdminLayout.cshtml";
+}
+
+@section scripts{
+
+    <script src="~/Scripts/web/article/articlesedit.js"></script>
+
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    @*<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>*@
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">@(Model.Id>0? "Chỉnh sửa bản tin": "Tạo mới bản tin")</h6>
+        </div>
+        <div class="card-body">
+            <form action="/admin/articles/edit" method="post">
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+                <input id="Id" name="Id" value="@Model.Id" type="number" hidden />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Headline, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Headline, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Headline, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Extract, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Extract, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Extract, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.CategoryIds, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.ListBoxFor(m => m.CategoryIds,
+                            new MultiSelectList(Model.NewsCategories, "Id", "Name"),
+                            new { @class = "form-control", multiple = "multiple" })
+                        @Html.ValidationMessageFor(m => m.CategoryIds, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.PublishDate, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => m.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.PublishDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.ByLine, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.ByLine, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ByLine, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Source, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Source, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Source, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.State, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(m => m.State, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.HtmlTitle, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.HtmlTitle, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.HtmlTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.HtmlMetaDescription, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.HtmlMetaDescription, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.HtmlMetaDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Priority, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Priority, new { @class = "form-control", type = "number" })
+                        @Html.ValidationMessageFor(m => m.Priority, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.PhotoHtmlAlt, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.PhotoHtmlAlt, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PhotoHtmlAlt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.PhotoURL, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.PhotoURL, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.PhotoURL, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-light" id="btnOpen">Chọn ảnh</button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Text, new { @class = "col-form-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Text, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4 offset-md-2">
+                        <input type="submit" class="btn btn-info" value="Lưu" />
+                        <a href="/admin/articles/index" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

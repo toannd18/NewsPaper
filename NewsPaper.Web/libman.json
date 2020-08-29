@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "select2@4.0.13",
+      "destination": "Scripts/select2/"
+    },
+    {
+      "library": "notify@0.4.2",
+      "destination": "Scripts/notify/"
+    },
+    {
+      "library": "bootbox.js@5.4.0",
+      "destination": "Scripts/bootbox.js/"
+    },
+    {
+      "library": "datatables@1.10.21",
+      "destination": "Scripts/datatables/"
+    },
+    {
+      "library": "moment.js@2.27.0",
+      "destination": "Scripts/moment.js/"
+    },
+    {
+      "library": "datatables.net-select-dt@1.3.1",
+      "destination": "Scripts/datatables/css/datatables.net-select-dt/"
+    },
+    {
+      "library": "bootstrap-datepicker@1.9.0",
+      "destination": "Scripts/bootstrap-datepicker/"
+    }
+  ]
+}

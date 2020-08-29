@@ -1,0 +1,27 @@
+﻿@model NewsPaper.Service.ViewModels.NewsCategorieModel
+
+    <form  id="frmCategory">
+        @Html.AntiForgeryToken()
+        <input id="Id" name="Id" value="@Model.Id" type="number" hidden/>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Name, new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.MetaDescription, new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.MetaDescription, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.MetaDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="button" class="btn btn-info"  value="Lưu" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>*@
+    </form>
